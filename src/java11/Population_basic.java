@@ -47,12 +47,6 @@ public class Population_basic implements PopulationAnalyzer{
                                 if(topIndexes.size() > n)topIndexes.remove(n);
                         }
 
-//                        System.out.println("==============================================");
-//                        for (int index : topIndexes) {
-//                                System.out.println(plist.get(index) + ":" + map.get(plist.get(index)));
-//                        }
-//                        System.out.println("==============================================");
-
                 }
                 //出力
                 for (int index : topIndexes) {
