@@ -43,7 +43,7 @@ public class PopulationStats {
 
 	public static void main(String[] args) {
 		PopulationStats ps = new PopulationStats();
-		//ny通緑ファイルを読み込み、年度別に格納
+		//入力ファイルを読み込み、年度別に格納
 		ps.readFile(args[0]);
 		ps.h12.printData();
 		ps.h17.printData();
@@ -65,6 +65,7 @@ public class PopulationStats {
 				String place = reader.readLine();
 				ps.printJinko(place);
 			}catch (Exception e){
+				//例外処理をするべき
 			}
 		}
 
