@@ -60,14 +60,27 @@ public class Population_basic implements PopulationAnalyzer{
 
         //レポートの課題内容で使用定義されていなかったが配布されたコード内で使用していたので実装
         //単純にデータを一覧出力
-        void printGraph(String place, Integer integer){
-
-        }
-
-
         @Override
         public void printData() {
+                //H12向けの処理。他の年度ではオーバーライドして実装。
+                System.out.println("データ名：H12年度");
+                for (String place : placeList) {
+                        //出力を整形する為にString.formatを使用
+                        String placeStr = "都道府県名：" + String.format("%-5s", place);
+                        System.out.print(placeStr + "　");
+                        System.out.println("人口：" + jinkoMap.get(place));
+                }
+        }
 
+        public void printGraph(String place, Integer population) {
+                // TODO:文字列整形 https://qiita.com/Lilly008000/items/00876d8c61ce36bd5fba
+//                //出力を整形する為にString.formatを使用
+//                String placeStr = "都道府県名：" + String.format("%-5s", place);
+//                System.out.print(placeStr);
+                //100人につき"*"を1つ出力するグラフ
+                int scaledPopulation = population / 100;
+                for (int i = 0; i < scaledPopulation; i++) System.out.print("*");
+                System.out.println("");
         }
 
         @Override
