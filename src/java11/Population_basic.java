@@ -1,5 +1,6 @@
 package java11;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -51,7 +52,7 @@ public class Population_basic implements PopulationAnalyzer{
                 //出力
                 for (int index : topIndexes) {
                         String place = plist.get(index);
-                        String placeStr = "都道府県名：" + String.format("%-5s", place);
+                        String placeStr = getPrefixStr(place);
                         System.out.print(placeStr);
                         Double value = map.get(place);
                         System.out.println(value);
@@ -65,20 +66,16 @@ public class Population_basic implements PopulationAnalyzer{
                 //H12向けの処理。他の年度ではオーバーライドして実装。
                 System.out.println("データ名：H12年度");
                 for (String place : placeList) {
-                        //出力を整形する為にString.formatを使用
-                        String placeStr = "都道府県名：" + String.format("%-5s", place);
+                        String placeStr = getPrefixStr(place);
                         System.out.print(placeStr + "　");
                         System.out.println("人口：" + jinkoMap.get(place));
                 }
         }
 
-        public void printGraph(String place, Integer population) {
+        public void printGraph(String place) {
                 // TODO:文字列整形 https://qiita.com/Lilly008000/items/00876d8c61ce36bd5fba
-//                //出力を整形する為にString.formatを使用
-//                String placeStr = "都道府県名：" + String.format("%-5s", place);
-//                System.out.print(placeStr);
                 //100人につき"*"を1つ出力するグラフ
-                int scaledPopulation = population / 100;
+                int scaledPopulation = jinkoMap.get(place) / 100;
                 for (int i = 0; i < scaledPopulation; i++) System.out.print("*");
                 System.out.println("");
         }
@@ -87,13 +84,27 @@ public class Population_basic implements PopulationAnalyzer{
         public void populationGraph_all() {
                 for (String place: placeList) {
                         // TODO:文字列整形 https://qiita.com/Lilly008000/items/00876d8c61ce36bd5fba
-                        //出力を整形する為にString.formatを使用
-                        String placeStr = "都道府県名：" + String.format("%-5s", place);
+                        //文字列整形
+                        String placeStr = getPrefixStr(place);
                         System.out.print(placeStr);
                         //100人につき"*"を1つ出力するグラフ
-                        int scaledPopulation = jinkoMap.get(place) / 100;
-                        for (int i = 0; i < scaledPopulation; i++) System.out.print("*");
-                        System.out.println("");
+                        printGraph(place);
                 }
+        }
+
+        //"都道府県名：○○__："になるように文字列整形
+        protected String getPrefixStr(String place){
+                String placeStr = format(place, 10);
+                placeStr = "都道府県名：" + placeStr;
+                return  placeStr;
+        }
+
+        protected String format(String target, int length){
+                int byteDiff = (getByteLength(target, Charset.forName("UTF-8"))-target.length())/2;
+                return String.format("%-"+(length-byteDiff)+"s", target);
+        }
+
+        protected int getByteLength(String string, Charset charset) {
+                return string.getBytes(charset).length;
         }
 }

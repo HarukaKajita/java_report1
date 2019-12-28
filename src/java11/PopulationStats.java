@@ -66,6 +66,7 @@ public class PopulationStats {
 				ps.printJinko(place);
 			}catch (Exception e){
 				//例外処理をするべき
+				System.out.println(e);
 			}
 		}
 
@@ -74,11 +75,11 @@ public class PopulationStats {
 	void printJinko(String place) {
 		System.out.println("====="+place+"の人口グラフ=====");
 		System.out.print("H12 年度:");
-		h12.printGraph(place, h12.jinkoMap.get(place));
+		h12.printGraph(place);
 		System.out.print("H17 年度:");
-		h17.printGraph(place, h17.jinkoMap.get(place));
+		h17.printGraph(place);
 		System.out.print("H21 年度:");
-		h21.printGraph(place, h21.jinkoMap.get(place));
+		h21.printGraph(place);
 	}
 }
 
